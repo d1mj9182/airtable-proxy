@@ -1,7 +1,7 @@
 export default async function handler(req, res) {
-  const API_KEY = process.env.AIRTABLE_API_KEY;
-  const BASE_ID = process.env.AIRTABLE_BASE_ID;
-  const TABLE_NAME = process.env.AIRTABLE_TABLE_NAME;
+  const API_KEY = patsLgTBSt5CorHUB.5bb3ba67450d67ac9da759726724d4c3af2d3b8534c9b9aa595a331d382fba3b
+  const BASE_ID = appCRfI2EJrLQJYBL
+  const TABLE_NAME = 당일민족1
 
   if (!API_KEY || !BASE_ID || !TABLE_NAME) {
     return res.status(500).json({ error: "Airtable 환경변수 설정 필요" });
