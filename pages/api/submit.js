@@ -28,7 +28,7 @@ export default async function handler(req, res) {
         Authorization: `Bearer ${API_KEY}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(payload.fields)
+      body: JSON.stringify({ fields: req.body })
     });
 
     const data = await airtableRes.json();
