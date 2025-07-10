@@ -1,7 +1,8 @@
 export default async function handler(req, res) {
   const allowedOrigins = [
-  "https://dlmj9182.github.io",    // 깃허브 Pages
-  "http://dlmj9182.github.io"      // 혹시 http로 접근할 경우
+  "https://dlmj9182.github.io",           // 깃허브 Pages
+  "http://dlmj9182.github.io",            // http 접근 (필요시)
+  "https://dangil-landing.vercel.app"     // Vercel 배포 도메인 추가
 ];
 const requestOrigin = req.headers.origin;
 if (allowedOrigins.includes(requestOrigin)) {
