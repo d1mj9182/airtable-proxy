@@ -21,22 +21,33 @@ export default async function handler(req, res) {
 
   if (req.method === "POST") {
     try {
+      const allowedFields = [
+        "접수일자", "고객명", "연락처", "통신사", "상품",
+        "부가상품", "상담시간", "진행상황", "TV추가"
+      ];
       const body = req.body;
+      const fields = {};
+
+      for (const key of allowedFields) {
+        if (body[key] !== undefined) fields[key] = body[key];
+      }
+
       const airtableRes = await fetch(AIRTABLE_API_URL, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${API_KEY}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ fields: body }),
+        body: JSON.stringify({ fields })
       });
+
       const data = await airtableRes.json();
       if (!airtableRes.ok) throw data;
 
       return res.status(200).json(data);
 
     } catch (e) {
-      // 에러 구조화 및 콘솔 출력
+      // ★ catch 안에서 바로 에러 구조화 및 반환
       const errorObj = {
         message: e?.message || (typeof e === 'string' ? e : JSON.stringify(e)),
         code: e?.code || e?.error || 'INTERNAL_ERROR',
