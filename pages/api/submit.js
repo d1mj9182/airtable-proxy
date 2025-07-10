@@ -1,17 +1,20 @@
 export default async function handler(req, res) {
-  const allowedOrigin = "https://dlmj9182.github.io";
-if (req.headers.origin === allowedOrigin) {
-  res.setHeader("Access-Control-Allow-Origin", allowedOrigin);
+  const allowedOrigins = [
+  "https://dlmj9182.github.io",    // 깃허브 Pages
+  "http://dlmj9182.github.io"      // 혹시 http로 접근할 경우
+];
+const requestOrigin = req.headers.origin;
+if (allowedOrigins.includes(requestOrigin)) {
+  res.setHeader("Access-Control-Allow-Origin", requestOrigin);
 } else {
-  res.setHeader("Access-Control-Allow-Origin", ""); // 차단
+  res.setHeader("Access-Control-Allow-Origin", allowedOrigins[0]); // fallback(기본)
 }
 res.setHeader("Vary", "Origin");
 res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
 res.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
-  if (req.method === 'OPTIONS') {
-    return res.status(200).end();
-  }
-
+if (req.method === 'OPTIONS') {
+  return res.status(200).end();
+}
   const API_KEY = process.env.AIRTABLE_API_KEY;
   const BASE_ID = process.env.AIRTABLE_BASE_ID;
   const TABLE_NAME = process.env.AIRTABLE_TABLE_NAME;
